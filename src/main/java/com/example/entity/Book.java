@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 @Entity
 public class Book {
 
@@ -16,6 +19,8 @@ public class Book {
 	private String isbn ;
 	private String author ;
 	private String lang ;
+	@DateTimeFormat(pattern="yyyy-MM-dd",iso = ISO.DATE)
+//	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Shanghai")	
 	private Date publish ;
 	
 	public int getId() {
