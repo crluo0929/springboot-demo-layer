@@ -1,7 +1,9 @@
 package com.example.api;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,15 @@ import com.example.service.BookService;
 public class BookController {
 
 	@Autowired BookService bookService ;
+	
+	@GetMapping("api/book/authors")
+	public List<AuthorJson> listAuthors(){
+		List<String> authors = bookService.listAuthors() ;
+		//組成前端需要的物件回傳
+		return authors.stream()
+				.map(author -> new AuthorJson(author) )
+				.collect(Collectors.toList());
+	}
 	
 	@GetMapping("/api/book/list")
 	public List<Book> listBooks(){
@@ -56,5 +67,16 @@ public class BookController {
 		return bookService.getBookByAuthorAndTitle(author, title) ;
 	}
 	
+}
+class AuthorJson{
+	String name ;
 	
+	AuthorJson(){}
+	AuthorJson(String name){this.name = name ;}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 }

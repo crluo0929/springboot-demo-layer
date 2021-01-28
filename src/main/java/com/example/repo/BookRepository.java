@@ -11,6 +11,9 @@ import com.example.entity.Book;
 @Repository
 public interface BookRepository extends CrudRepository<Book, Integer>{
 
+	@Query(value="select author from book", nativeQuery = true)
+	public Iterable<String> findAuthors() ;
+	
 	public Optional<Book> findByIsbn(String isbn) ;
 	
 	public Iterable<Book> findByAuthor(String author) ;

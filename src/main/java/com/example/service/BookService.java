@@ -15,6 +15,15 @@ public class BookService {
 
 	@Autowired BookRepository bookDao ;
 	
+	public List<String> listAuthors(){
+		//過濾重覆的資料
+		return StreamSupport
+				.stream(bookDao.findAuthors().spliterator(), false)
+				.collect(Collectors.toSet())
+				.stream()
+				.collect(Collectors.toList()) ;
+	}
+	
 	public List<Book> listBooks(){
 		return iterableToList(bookDao.findAll()) ;
 	}
@@ -44,7 +53,7 @@ public class BookService {
 		return iterableToList(bookDao.queryAuthorAndTitle(author, title)) ;
 	}
 	
-	private List<Book> iterableToList(Iterable<Book> itr){
+	private <T> List<T> iterableToList(Iterable<T> itr){
 		return StreamSupport
 				.stream(itr.spliterator(), false)
 				.collect(Collectors.toList()) ;
