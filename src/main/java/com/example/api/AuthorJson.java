@@ -4,8 +4,8 @@ public class AuthorJson {
 	
 	private String name ;
 	
-	AuthorJson(){}
-	AuthorJson(String name){this.name = name ;}
+	public AuthorJson(){}
+	public AuthorJson(String name){this.name = name ;}
 	
 	public String getName() {
 		return name;
